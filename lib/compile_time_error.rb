@@ -1,0 +1,2 @@
+class CompileTimeError < StandardError
+end
