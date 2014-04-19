@@ -15,11 +15,13 @@ class JavaMind
   def run!(input: nil)
     # popen2e combines stdin and stderr into a single stream
     Open3.popen2e("cd #{@directory}; java #{self.class.default_class_name}") do |i, o|
-      # prints the whole input including \n
-      i.print(input)
-      i.close
-      # reads the whole file even \n
-      o.read
+      Timeout.timeout(10) do
+        # prints the whole input including \n
+        i.print(input)
+        i.close
+        # reads the whole file even \n
+        o.read
+      end
     end
   end
 

@@ -1,19 +1,29 @@
-<p id="notice"><%= notice %></p>
+<h3><%= @competition.name %> - <%= @competition.start_time.strftime('%B %e, %l:%M:%S %P') %> to <%= @competition.end_time.strftime('%B %e, %l:%M:%S %P') %></h3>
 
-<p>
-  <strong>Name:</strong>
-  <%= @competition.name %>
-</p>
+<div>
+  <p>Total Time: <%= @competition.duration %> minutes</p>
+  <p>Users Registered: <%= @competition.users.count %></p>
+</div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @competition.start_time %>
-</p>
-
-<p>
-  <strong>Duration:</strong>
-  <%= @competition.duration %>
-</p>
-
-<%= link_to 'Edit', edit_competition_path(@competition) %> |
-<%= link_to 'Back', competitions_path %>
+<% if false && @competition.before? %>
+  <div class='lead'>
+    This competition has not yet started. Please wait until <%= @competition.start_time.strftime('%B %e, %l:%M:%S %P') %> for the competition to begin.
+  </div>
+<% else %>
+  <% if @competition.after? %>
+  <div class='lead'>
+    This competition ended already, but the problem set is still available to view.
+  </div>
+  <% end %>
+  <h3>Problem Set</h3>
+  <ol>
+    <% @competition.problems.each do |problem| %>
+    <li><a href='#problem-<%= problem.id %>'><%= problem.name %></a></li>
+    <% end %>
+  </ol>
+  <% @competition.problems.each do |problem| %>
+    <div class='well'>
+      <%= render 'problems/problem', problem: problem, submit: true %>
+    </div>
+  <% end %>
+<% end %>

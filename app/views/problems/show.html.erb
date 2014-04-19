@@ -1,0 +1,21 @@
+<div class='well'>
+  <%= form_for [@problem.competition, @problem, @submission], html: { class: 'form' } do |f| %>
+    <div class='form-controls'>
+      <%= f.label :language %>
+      <%= f.select :language, [['Java', 'java'], ['C', 'c']] %>
+    </div>
+    <p>
+      <i>Java code must be in a class called <b><%= JavaMind.default_class_name %></b>.</i>
+    </p>
+    <div class='form-controls'>
+      <%= f.label :code %>
+      <%= f.text_area :code, cols: '120', rows: '20', class: 'form-control' %>
+    </div>
+    <div class='form-controls'>
+      <label>&nbsp;</label>
+      <%= f.submit :submit, class: 'btn btn-primary form-control' %>
+    </div>
+  <% end %>
+</div>
+
+<%= render 'problem', problem: @problem, submit: false %>

@@ -6,6 +6,13 @@ gem 'rails', '4.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+gem 'sidekiq'
+
+gem 'rails_admin'
+gem 'bootstrap-wysihtml5-rails'
+gem 'codemirror-rails'
+gem 'devise'
+
 gem 'sass-rails', '~> 4.0.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap-sass'
@@ -22,7 +29,7 @@ group :test do
 end
 
 group :development do
-  # gem 'bootstrap-generators', '~> 3.1.1'
+  gem 'bootstrap-generators', '~> 3.1.1'
 end
 
 ruby '2.1.1'

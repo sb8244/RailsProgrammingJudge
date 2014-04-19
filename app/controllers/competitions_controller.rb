@@ -1,58 +1,21 @@
 class CompetitionsController < ApplicationController
-  before_action :set_competition, only: [:show, :edit, :update, :destroy]
 
-  # GET /competitions
+  before_filter :authenticate_user!
+
   def index
     @competitions = Competition.all
   end
 
-  # GET /competitions/1
   def show
+    @competition = Competition.find(params[:id])
   end
 
-  # GET /competitions/new
-  def new
-    @competition = Competition.new
+  def join
+    @competition = Competition.find(params[:id])
+
+    current_user.competitions << @competition unless current_user.competitions.exists?(@competition)
+    current_user.save!
+
+    redirect_to @competition, notice: "You have joined this competition."
   end
-
-  # GET /competitions/1/edit
-  def edit
-  end
-
-  # POST /competitions
-  def create
-    @competition = Competition.new(competition_params)
-
-    if @competition.save
-      redirect_to @competition, notice: 'Competition was successfully created.'
-    else
-      render action: 'new'
-    end
-  end
-
-  # PATCH/PUT /competitions/1
-  def update
-    if @competition.update(competition_params)
-      redirect_to @competition, notice: 'Competition was successfully updated.'
-    else
-      render action: 'edit'
-    end
-  end
-
-  # DELETE /competitions/1
-  def destroy
-    @competition.destroy
-    redirect_to competitions_url, notice: 'Competition was successfully destroyed.'
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_competition
-      @competition = Competition.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def competition_params
-      params.require(:competition).permit(:name, :start_time, :duration)
-    end
 end
