@@ -1,0 +1,22 @@
+<table class='table table-striped table-bordered'>
+  <thead>
+    <tr>
+      <th>Competition</th>
+      <th>Problem</th>
+      <th>Submitted</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @submissions.each do |submission| %>
+      <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
+        <td><%= submission.problem.competition.name %></td>
+        <td><%= submission.problem.name %></td>
+        <td><%= submission.updated_at.strftime('%B %e, %l:%M:%S %P') %></td>
+        <td><%= submission.status %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,8 +1,9 @@
 ProgJudge::Application.routes.draw do
   devise_for :views
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-
   devise_for :users
+
+  root 'competitions#index'
+
   resources :competitions, only: [:index, :show] do
     post :join, on: :member
     resources :problems, only: [:show] do
@@ -10,7 +11,9 @@ ProgJudge::Application.routes.draw do
     end
   end
 
-  root 'competitions#index'
+  resources :submissions, only: [:index, :show]
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'

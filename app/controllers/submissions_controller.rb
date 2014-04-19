@@ -1,4 +1,10 @@
 class SubmissionsController < ApplicationController
+  before_filter :authenticate_user!
+
+  def index
+    @submissions = Submission.where(user: current_user).order("updated_at DESC")
+  end
+
   def create
     @problem = Problem.find(params[:problem_id])
     unless @problem.competition.running?

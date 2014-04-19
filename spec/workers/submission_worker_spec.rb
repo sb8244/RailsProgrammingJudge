@@ -13,8 +13,10 @@ describe SubmissionWorker do
       JavaMind.any_instance.should_receive(:compile!)
       JavaMind.any_instance.should_receive(:run!).and_return("1")
       problem.test_cases.create(input: "1", output: "1")
-      SubmissionWorker.new.perform(submission.id)
-      expect(Result.last.status).to eq("success")
+      expect {
+        SubmissionWorker.new.perform(submission.id)
+        submission.reload
+      }.to change{ submission.status }.to('success')
     end
   end
 
@@ -26,8 +28,10 @@ describe SubmissionWorker do
 
     it "sets correct with a correct input/output" do
       problem.test_cases.create(input: "1", output: "1\noutput")
-      SubmissionWorker.new.perform(submission.id)
-      expect(Result.last.status).to eq("success")
+      expect {
+        SubmissionWorker.new.perform(submission.id)
+        submission.reload
+      }.to change{ submission.status }.to('success')
     end
 
     it "doesn't shit up my tmp space" do
@@ -38,8 +42,10 @@ describe SubmissionWorker do
 
     it "catches wrong answer" do
       problem.test_cases.create(input: "1", output: "wrong")
-      SubmissionWorker.new.perform(submission.id)
-      expect(Result.last.status).to eq("wrong_answer")
+      expect {
+        SubmissionWorker.new.perform(submission.id)
+        submission.reload
+      }.to change{ submission.status }.to('wrong_answer')
     end
 
     context "when bad compilation" do
@@ -49,8 +55,10 @@ describe SubmissionWorker do
       }
       it "catches compile errors" do
         problem.test_cases.create(input: "1", output: "wrong")
-        SubmissionWorker.new.perform(submission.id)
-        expect(Result.last.status).to eq("compile_error")
+        expect {
+          SubmissionWorker.new.perform(submission.id)
+          submission.reload
+        }.to change{ submission.status }.to('compile_error')
       end
     end
   end

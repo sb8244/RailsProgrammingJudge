@@ -13,11 +13,10 @@ class SubmissionWorker
     @problem = @submission.problem
 
     if @submission.language == "java"
-      result = handle_java!
+      @submission.status = handle_java!
       clean!
     end
     
-    @submission.result = Result.create!(status: result)
     @submission.save!
   end
 
