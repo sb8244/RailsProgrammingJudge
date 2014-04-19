@@ -4,7 +4,7 @@ RailsAdmin.config do |config|
 
   ## == Devise ==
   config.authorize_with do |controller|
-    redirect_to main_app.root_path, error: "Please sign in as admin" unless current_user
+    redirect_to main_app.root_path, error: "Please sign in as admin" unless current_user && current_user.admin?
   end
 
   ## == Cancan ==
