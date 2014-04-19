@@ -11,13 +11,14 @@ class SubmissionWorker
   def perform(submission_id)
     @submission = Submission.find(submission_id)
     @problem = @submission.problem
+
     if @submission.language == "java"
       result = handle_java!
       clean!
-
-      @submission.result = Result.create!(status: result)
-      @submission.save!
     end
+    
+    @submission.result = Result.create!(status: result)
+    @submission.save!
   end
 
   private
