@@ -1,6 +1,9 @@
 class SubmissionsController < ApplicationController
   def create
     @problem = Problem.find(params[:problem_id])
+    unless @problem.competition.running?
+      return redirect_to [@problem.competition, @problem], error: "This competition has ended"
+    end
     @submission = @problem.submissions.create(submission_params)
     @submission.user = current_user
 

@@ -23,5 +23,12 @@ describe SubmissionsController do
         post :create, problem_id: problem, competition_id: competition, submission: { language: "java", code: "code" }
       }.to change{ SubmissionWorker.jobs.size }.by(1)
     end
+
+    it "doesn't allow submission for expired competition" do
+      competition.update_attributes!(start_time: Time.now + 3.days)
+      expect {
+        post :create, problem_id: problem, competition_id: competition, submission: { language: "java", code: "code" }
+      }.not_to change{ Submission.count }
+    end
   end
 end
