@@ -43,10 +43,12 @@ class SubmissionWorker
       return :compile_error
     end
     @problem.test_cases.each do |test_case|
-      output = @mind.run!({input: test_case.input})
-      status = Comparer.compare({output: output, expected: test_case.output})
-      if status != :success
-        return status
+      if test_case.active?
+        output = @mind.run!({input: test_case.input})
+        status = Comparer.compare({output: output, expected: test_case.output})
+        if status != :success
+          return status
+        end
       end
     end
 
