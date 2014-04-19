@@ -40,4 +40,10 @@ RailsAdmin.config do |config|
       configure :output, :code_mirror
     end
   end
+
+  config.model Submission do
+    edit do
+      configure :code, :code_mirror
+    end
+  end
 end

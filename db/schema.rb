@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419074212) do
+ActiveRecord::Schema.define(version: 20140419075423) do
 
   create_table "competitions", force: true do |t|
     t.string   "name"
@@ -42,12 +42,11 @@ ActiveRecord::Schema.define(version: 20140419074212) do
   create_table "submissions", force: true do |t|
     t.integer  "problem_id"
     t.integer  "user_id"
-    t.string   "status"
+    t.string   "status",     default: "not_started", null: false
     t.string   "code"
     t.string   "language"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "result_id"
   end
 
   create_table "test_cases", force: true do |t|

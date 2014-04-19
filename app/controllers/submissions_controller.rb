@@ -5,6 +5,10 @@ class SubmissionsController < ApplicationController
     @submissions = Submission.where(user: current_user).order("updated_at DESC")
   end
 
+  def show
+    @submission = Submission.where(user: current_user, id: params[:id])
+  end
+
   def create
     @problem = Problem.find(params[:problem_id])
     unless @problem.competition.running?
