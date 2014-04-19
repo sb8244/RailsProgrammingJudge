@@ -4,6 +4,7 @@ class CompetitionsController < ApplicationController
 
   def index
     @competitions = Competition.all
+    @active = @competitions.select { |c| c.running? }
   end
 
   def show

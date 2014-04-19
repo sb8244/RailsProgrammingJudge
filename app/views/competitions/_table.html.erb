@@ -1,0 +1,31 @@
+<table class='table table-striped table-bordered'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start time</th>
+      <th>Duration</th>
+      <th>End time</th>
+      <th>Complete?</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% competitions.each do |competition| %>
+      <tr class='<%= competition.end_time < Time.now ? 'danger' : '' %>'>
+        <td><%= competition.name %></td>
+        <td><%= competition.start_time.strftime('%B %e, %l:%M:%S %P') %></td>
+        <td><%= competition.duration %></td>
+        <td><%= competition.end_time.strftime('%B %e, %l:%M:%S %P') %></td>
+        <td><%= competition.end_time < Time.now ? 'Yes' : 'No' %></td>
+        <td>
+          <%= link_to 'View', competition, class: 'btn btn-success' %>
+          <% if current_user.competitions.exists?(competition) %>
+            <button disabled class="btn">Joined</button>
+          <% else %>
+            <%= link_to 'Join', join_competition_path(competition), method: :post, class: 'btn btn-primary' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
