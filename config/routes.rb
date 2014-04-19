@@ -11,4 +11,7 @@ ProgJudge::Application.routes.draw do
   end
 
   root 'competitions#index'
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end
