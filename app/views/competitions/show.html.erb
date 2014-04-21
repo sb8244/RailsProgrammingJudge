@@ -12,18 +12,26 @@
 <% else %>
   <% if @competition.after? %>
   <div class='lead'>
-    This competition ended already, but the problem set is still available to view.
+    This competition ended already, so the problem set has been hidden. This may be changed soon so that problem sets are always visible.
   </div>
-  <% end %>
-  <h3>Problem Set</h3>
-  <ol>
-    <% @competition.problems.each do |problem| %>
-    <li><a href='#problem-<%= problem.id %>'><%= problem.name %></a></li>
+  <% else %>
+    <% if @competition.users.include?(current_user) %>
+      <h3>Problem Set</h3>
+      <ol>
+        <% @competition.problems.each do |problem| %>
+        <li><a href='#problem-<%= problem.id %>'><%= problem.name %></a></li>
+        <% end %>
+      </ol>
+      <% @competition.problems.each do |problem| %>
+        <div class='well'>
+          <%= render 'problems/problem', problem: problem, submit: true %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class='well'>
+        You must sign up for this competition to view the problem set: 
+        <%= link_to 'Join', join_competition_path(@competition), method: :post, class: 'btn btn-primary' %>
+      </div>
     <% end %>
-  </ol>
-  <% @competition.problems.each do |problem| %>
-    <div class='well'>
-      <%= render 'problems/problem', problem: problem, submit: true %>
-    </div>
   <% end %>
 <% end %>

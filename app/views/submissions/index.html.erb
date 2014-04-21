@@ -11,10 +11,10 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
-        <td><%= submission.problem.competition.name %></td>
-        <td><%= submission.problem.name %></td>
+        <td><%= link_to submission.problem.competition.name, competition_path(submission.problem.competition) %></td>
+        <td><%= link_to submission.problem.name, competition_problem_path(submission.problem.competition, submission.problem) %></td>
         <td><%= submission.updated_at.strftime('%B %e, %l:%M:%S %P') %></td>
-        <td><%= submission.status %></td>
+        <td><%= submission.status.humanize %></td>
         <td><%= link_to 'Details', submission, class: 'btn btn-default' %></td>
       </tr>
     <% end %>
