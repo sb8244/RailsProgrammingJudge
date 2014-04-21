@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Starter Template for Bootstrap</title>
+  <title>Shippensburg Programming Competition Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -17,34 +17,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <%= link_to "ProgJudge", root_path, :class => "navbar-brand" %>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li><%= link_to 'Competitions', competitions_path %></li>
-          <li><%= link_to 'Submissions', submissions_path %></li>
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class='sidebar-brand'><%= link_to 'Prog Judge', root_path %></li>
+            <li><%= link_to 'Competitions', competitions_path %></li>
+            <li><%= link_to 'Your Submissions', submissions_path %></li>
         </ul>
-      </div>
     </div>
-  </div>
-  <div class="container">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, :class => "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable" do %>
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <%= msg %>
-      <% end %>
-    <% end %>
 
-    <%= yield %>
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+        <!--<div class="content-header">
+            <h1>
+                <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+                Simple Sidebar
+            </h1>
+        </div>-->
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="container">
+            <% flash.each do |name, msg| %>
+              <%= content_tag :div, :class => "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable" do %>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <%= msg %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="row">
+              <%= yield %>
+          </div>
+        </div>
+    </div>
   </div>
 </body>
 </html>
