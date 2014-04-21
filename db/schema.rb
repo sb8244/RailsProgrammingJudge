@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419075423) do
+ActiveRecord::Schema.define(version: 20140421193223) do
 
   create_table "competitions", force: true do |t|
     t.string   "name"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20140419075423) do
     t.integer  "duration"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "problem_id"
   end
 
   create_table "competitions_users", force: true do |t|
@@ -35,8 +34,6 @@ ActiveRecord::Schema.define(version: 20140419075423) do
     t.datetime "updated_at"
     t.string   "input_example"
     t.string   "output_example"
-    t.integer  "submission_id"
-    t.integer  "test_case_id"
   end
 
   create_table "submissions", force: true do |t|
