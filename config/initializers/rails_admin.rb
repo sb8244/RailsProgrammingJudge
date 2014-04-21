@@ -26,6 +26,12 @@ RailsAdmin.config do |config|
     show_in_app
   end
 
+  config.model Competition do
+    edit do
+      exclude_fields :problem
+    end
+  end
+
   config.model Problem do
     edit do
       configure :html, :wysihtml5
