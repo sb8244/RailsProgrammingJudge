@@ -1,5 +1,8 @@
 <%= render 'problem', problem: @problem, submit: false %>
-
+<div class='well'>
+  <h3>Submissions</h3>
+  <%= render 'submissions/short_table', submissions: @submissions %>
+</div>
 <div class='well'>
   <h3>Submit a Solution</h3>
   <%= form_for [@problem.competition, @problem, @submission], html: { class: 'form' } do |f| %>

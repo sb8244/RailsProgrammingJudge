@@ -1,0 +1,16 @@
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th>Submitted</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% submissions.each do |submission| %>
+    <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
+      <td><%= link_to submission.updated_at.strftime('%B %e, %l:%M:%S %P'), submission %></td>
+      <td><%= submission.status.humanize %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
