@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :rememberable, :validatable
 
   has_and_belongs_to_many :competitions
+  has_many :submissions
 end

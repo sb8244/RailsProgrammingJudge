@@ -2,11 +2,11 @@ class SubmissionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @submissions = Submission.where(user: current_user).order("updated_at DESC")
+    @submissions = current_user.submissions.order("updated_at DESC")
   end
 
   def show
-    @submission = Submission.where(user: current_user, id: params[:id])
+    @submission = current_user.submissions.find(params[:id])
   end
 
   def create

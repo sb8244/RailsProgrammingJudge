@@ -9,7 +9,7 @@ class CompetitionsController < ApplicationController
 
   def show
     @competition = Competition.find(params[:id])
-    @submissions = Submission.joins(:problem).where(problems: {competition_id: @competition}, user: current_user).order("updated_at DESC").limit(3)
+    @submissions = current_user.submissions.joins(:problem).where(problems: {competition_id: @competition}).order("updated_at DESC").limit(3)
   end
 
   def join
