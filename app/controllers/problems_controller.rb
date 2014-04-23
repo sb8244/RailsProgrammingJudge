@@ -4,6 +4,6 @@ class ProblemsController < ApplicationController
   def show
     @problem = Problem.find(params[:id])
     @submission = Submission.new
-    @submissions = current_user.submissions.where(problem: @problem).order("updated_at DESC").limit(3)
+    @submissions = current_user.submissions.where(problem: @problem, competition: @problem.competition).order("updated_at DESC").limit(3)
   end
 end

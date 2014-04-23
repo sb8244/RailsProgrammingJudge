@@ -11,7 +11,7 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
-        <td><%= link_to submission.problem.competition.name, competition_path(submission.problem.competition) %></td>
+        <td><%= link_to submission.competition.name, competition_path(submission.competition) %></td>
         <td><%= link_to submission.problem.name, competition_problem_path(submission.problem.competition, submission.problem) %></td>
         <td><%= submission.updated_at.strftime('%B %e, %l:%M:%S %P') %></td>
         <td><%= submission.status.humanize %></td>
