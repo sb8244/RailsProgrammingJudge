@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require codemirror
+//= require codemirror/modes/clike
 //= require_tree .
 
 $(document).ready(function() {

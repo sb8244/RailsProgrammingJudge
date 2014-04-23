@@ -1,0 +1,17 @@
+<h3>Submission Details</h3>
+<p>
+  <strong>Problem: </strong><%= @submission.problem.name %>
+</p>
+<p>
+  <strong>Competition: </strong><%= @submission.problem.competition.name %>
+</p>
+<p>
+  <strong>Submitted on: </strong><%= @submission.created_at.strftime('%B %e, %l:%M:%S %P') %>
+</p>
+<p>
+  <strong>Status: </strong><%= @submission.status.humanize %>
+</p>
+<div class='well'>
+  <h3>Submission Code</h3>
+  <textarea class='code' data-language='<%= @submission.language %>'><%= @submission.code %></textarea>
+</div>
