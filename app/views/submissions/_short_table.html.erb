@@ -11,10 +11,10 @@
     <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
       <td><%= link_to submission.updated_at.strftime('%B %e, %l:%M:%S %P'), submission %></td>
       <td><%= submission.status.humanize %></td>
-      <% if submission.competition.nil? %>
-        <td><i>None</i></td>
-      <% else %>
+      <% if submission.competition %>
         <td><%= submission.competition.name %></td>
+      <% else %>
+        <td><i>None</i></td>
       <% end %>
     </tr>
   <% end %>
