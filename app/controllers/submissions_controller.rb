@@ -16,6 +16,7 @@ class SubmissionsController < ApplicationController
     end
     @submission = @problem.submissions.create(submission_params)
     @submission.user = current_user
+    @submission.competition = @problem.competition
 
     if @submission.save
       SubmissionWorker.perform_async(@submission.id)

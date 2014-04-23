@@ -18,6 +18,11 @@ describe SubmissionsController do
       expect(Submission.last.user).to eq(user)
     end
 
+    it "sets the competition" do
+      post :create, problem_id: problem, competition_id: competition, submission: { language: "java", code: "code" }
+      expect(Submission.last.competition).to eq(competition)
+    end
+
     it "queues a background job" do
       expect {
         post :create, problem_id: problem, competition_id: competition, submission: { language: "java", code: "code" }
