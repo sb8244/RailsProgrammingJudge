@@ -16,10 +16,6 @@
   </div>
   <% else %>
     <% if @competition.users.include?(current_user) %>
-      <div class='well'>
-        <h3>Submissions</h3>
-        <%= render 'submissions/short_table', submissions: @submissions %>
-      </div>
       <h3>Problem Set</h3>
       <ol>
         <% @competition.problems.each do |problem| %>
