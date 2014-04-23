@@ -12,7 +12,7 @@ class SubmissionsController < ApplicationController
   def create
     @problem = Problem.find(params[:problem_id])
     unless @problem.competition.running?
-      return redirect_to [@problem.competition, @problem], error: "This competition has ended"
+      return redirect_to @problem, error: "This competition has ended"
     end
     @submission = @problem.submissions.create(submission_params)
     @submission.user = current_user
@@ -20,9 +20,9 @@ class SubmissionsController < ApplicationController
 
     if @submission.save
       SubmissionWorker.perform_async(@submission.id)
-      redirect_to [@problem.competition, @problem], notice: "Submission Received"
+      redirect_to @problem, notice: "Submission Received"
     else
-      redirect_to [@problem.competition, @problem], error: "Error occurred, please try again"
+      redirect_to @problem, error: "Error occurred, please try again"
     end
   end
 

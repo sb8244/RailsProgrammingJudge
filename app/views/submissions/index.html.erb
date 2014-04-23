@@ -11,8 +11,12 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr class='<%= submission.status == 'success' ? 'success' : '' %>'>
-        <td><%= link_to submission.competition.name, competition_path(submission.competition) %></td>
-        <td><%= link_to submission.problem.name, competition_problem_path(submission.problem.competition, submission.problem) %></td>
+        <% if submission.competition %>
+          <td><%= link_to submission.competition.name, competition_path(submission.competition) %></td>
+        <% else %>
+          <td><i>Removed</i></td>
+        <% end %>
+        <td><%= link_to submission.problem.name, problem_path(submission.problem) %></td>
         <td><%= submission.updated_at.strftime('%B %e, %l:%M:%S %P') %></td>
         <td><%= submission.status.humanize %></td>
         <td><%= link_to 'Details', submission, class: 'btn btn-default' %></td>
