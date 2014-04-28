@@ -3,7 +3,7 @@
   <strong>Problem: </strong><%= @submission.problem.name %>
 </p>
 <p>
-  <strong>Competition: </strong><%= @submission.competition.name %>
+  <strong>Competition: </strong><%= @submission.competition.name if @submission.competition %>
 </p>
 <p>
   <strong>Submitted on: </strong><%= @submission.created_at.strftime('%B %e, %l:%M:%S %P') %>

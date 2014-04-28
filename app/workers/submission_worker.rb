@@ -18,6 +18,8 @@ class SubmissionWorker
     end
     
     @submission.save!
+
+    Pusher.trigger("user-#{@submission.user.id}", 'submission-update', { problem: @problem.name, id: @submission.id, status: @submission.status.to_s.humanize })
   end
 
   private

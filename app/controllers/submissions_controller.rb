@@ -19,7 +19,7 @@ class SubmissionsController < ApplicationController
     @submission.competition = @problem.competition
 
     if @submission.save
-      SubmissionWorker.perform_async(@submission.id)
+      SubmissionWorker.perform_in(2.seconds,@submission.id)
       redirect_to @problem, notice: "Submission Received"
     else
       redirect_to @problem, error: "Error occurred, please try again"

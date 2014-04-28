@@ -1,4 +1,7 @@
 <h3><%= problem.name %></h3>
+<% if problem.competition %>
+<h4>Competition: <%= link_to problem.competition.name , problem.competition %></h4>
+<% end %>
 <div class='well' id='problem-<%= problem.id %>'>
   <div class='row'>
     <div class='col-sm-12'>

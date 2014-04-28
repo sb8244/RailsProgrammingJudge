@@ -15,6 +15,23 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.min.css" media="all" rel="stylesheet" />
+
+  <% if user_signed_in? %>
+  <script data-turbolinks-track="true">
+    window.pusher = new Pusher('<%= ENV["pusher_key"] %>');
+    var channel = pusher.subscribe('user-<%= current_user.id %>');
+    channel.bind('submission-update', function(data) {
+      toastr.info("Submission " + data.id + " for " + data.problem + ": " + data.status)
+    });
+    channel.bind('clarification-answered', function(data) {
+      toastr.info('Clarification for "' + data.problem + '" Q: ' + data.question + " A: " + data.answer)
+    });
+  </script>
+  <% end %>
 </head>
 <body>
   <div id="wrapper">
