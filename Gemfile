@@ -13,6 +13,7 @@ gem 'rails_admin'
 gem 'bootstrap-wysihtml5-rails'
 gem 'codemirror-rails'
 gem 'devise'
+gem 'newrelic_rpm'
 
 gem 'sass-rails', '~> 4.0.2'
 gem 'uglifier', '>= 1.3.0'
