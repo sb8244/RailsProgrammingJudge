@@ -23,6 +23,7 @@ gem 'pusher'
 
 gem 'newrelic_rpm'
 gem 'figaro'
+gem 'foreman'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

@@ -1,0 +1,1 @@
+worker: bundle exec sidekiq --concurrency 1
