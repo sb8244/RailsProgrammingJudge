@@ -3,6 +3,7 @@
 <div>
   <p>Total Time: <%= @competition.duration %> minutes</p>
   <p>Users Registered: <%= @competition.users.count %></p>
+  <p><%= link_to 'Scoreboard', scoreboard_competition_path(@competition) %></p>
 </div>
 
 <% if false && @competition.before? %>

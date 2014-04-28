@@ -6,6 +6,7 @@ ProgJudge::Application.routes.draw do
 
   resources :competitions, only: [:index, :show] do
     post :join, on: :member
+    get :scoreboard, on: :member
   end
   
   resources :problems, only: [:show] do

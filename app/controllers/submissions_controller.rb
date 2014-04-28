@@ -14,7 +14,7 @@ class SubmissionsController < ApplicationController
     unless @problem.competition.running?
       return redirect_to @problem, error: "This competition has ended"
     end
-    @submission = @problem.submissions.create(submission_params)
+    @submission = @problem.submissions.build(submission_params)
     @submission.user = current_user
     @submission.competition = @problem.competition
 

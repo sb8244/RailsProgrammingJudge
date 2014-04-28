@@ -1,0 +1,31 @@
+<h3>Scoreboard - <%= @competition.name %> - <%= @competition.start_time.strftime('%B %e, %l:%M:%S %P') %> to <%= @competition.end_time.strftime('%B %e, %l:%M:%S %P') %></h3>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <% @problem_ids.each do |id| %>
+      <th><%= id %></th>
+      <% end %>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @scores.each do |user_id, score| %>
+    <tr>
+      <td><%= user_id %></td>
+      <% @problem_ids.each do |id| %>
+      <td>
+        <% unless score[:successes][id].nil? %>
+        <span>S (<%= score[:successes][id] %>)</span>
+        <% end %>
+        <% score[:failures].fetch(id){ 0 }.times do %>
+        <strong>X</strong>
+        <% end %>
+      </td>
+      <% end %>
+      <td><%= score[:successes].size %> / <%= score[:score] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

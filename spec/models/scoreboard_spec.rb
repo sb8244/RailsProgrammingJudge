@@ -8,11 +8,15 @@ describe Scoreboard do
 
   subject { Scoreboard.new(competition) }
 
+  before do
+    competition.users << [user, user2]
+  end
+  
   it "doesn't count not_started" do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "not_started", competition: competition, created_at: now + 5.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({})
-      expect(scores[1][:successes]).to eq([])
+      expect(scores[1][:successes]).to eq({})
       expect(scores[1][:score]).to eq(0)
   end
 
@@ -21,7 +25,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "success", competition: competition, created_at: now + 5.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({})
-      expect(scores[1][:successes]).to eq([1])
+      expect(scores[1][:successes]).to eq({1 => 5})
       expect(scores[1][:score]).to eq(5)
     end
 
@@ -30,7 +34,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "success", competition: competition, created_at: now + 10.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({})
-      expect(scores[1][:successes]).to eq([1])
+      expect(scores[1][:successes]).to eq({1 => 5})
       expect(scores[1][:score]).to eq(5)
     end
 
@@ -39,7 +43,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "success", competition: competition, created_at: now + 10.minutes, problem_id: 2)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({})
-      expect(scores[1][:successes]).to eq([1, 2])
+      expect(scores[1][:successes]).to eq({1 => 5, 2 => 10})
       expect(scores[1][:score]).to eq(15)
     end
   end
@@ -49,7 +53,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "wrong_answer", competition: competition, created_at: now + 5.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({1 => 1})
-      expect(scores[1][:successes]).to eq([])
+      expect(scores[1][:successes]).to eq({})
       expect(scores[1][:score]).to eq(20)
     end
 
@@ -58,7 +62,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "compile_error", competition: competition, created_at: now + 50.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({1 => 2})
-      expect(scores[1][:successes]).to eq([])
+      expect(scores[1][:successes]).to eq({})
       expect(scores[1][:score]).to eq(40)
     end
 
@@ -68,7 +72,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "wrong_answer", competition: competition, created_at: now + 5.minutes, problem_id: 2)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({1 => 2, 2 => 1})
-      expect(scores[1][:successes]).to eq([])
+      expect(scores[1][:successes]).to eq({})
       expect(scores[1][:score]).to eq(60)
     end
   end
@@ -80,7 +84,7 @@ describe Scoreboard do
       user.submissions.create!(code: "doesn't matter", language: "java", status: "success", competition: competition, created_at: now + 25.minutes, problem_id: 1)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({1 => 1})
-      expect(scores[1][:successes]).to eq([1])
+      expect(scores[1][:successes]).to eq({1 => 25})
       expect(scores[1][:score]).to eq(20 + 25)
     end
   end
@@ -91,10 +95,10 @@ describe Scoreboard do
       user2.submissions.create!(code: "doesn't matter", language: "java", status: "success", competition: competition, created_at: now + 5.minutes, problem_id: 2)
       scores = subject.get_scores
       expect(scores[1][:failures]).to eq({1 => 1})
-      expect(scores[1][:successes]).to eq([])
+      expect(scores[1][:successes]).to eq({})
       expect(scores[1][:score]).to eq(20)
       expect(scores[2][:failures]).to eq({1 => 1})
-      expect(scores[2][:successes]).to eq([2])
+      expect(scores[2][:successes]).to eq({2 => 5})
       expect(scores[2][:score]).to eq(20 + 5)
   end
 end

@@ -12,6 +12,14 @@ class CompetitionsController < ApplicationController
     # @submissions = current_user.submissions.joins(:problem).where(problems: {competition_id: @competition}).order("updated_at DESC").limit(3)
   end
 
+  def scoreboard
+    @competition = Competition.find(params[:id])
+    scoreboard = Scoreboard.new(@competition)
+    @scores = scoreboard.get_scores
+    @problem_ids = @competition.problems.pluck(:id)
+    @user_ids = @competition.users.pluck(:id)
+  end
+
   def join
     @competition = Competition.find(params[:id])
 

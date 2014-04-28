@@ -27,9 +27,12 @@ class Scoreboard
 
   def process_submissions
     submissions = @competition.submissions.order("created_at ASC")
-    submissions.each do |submission|
-      @scores[submission.user_id] = { failures: {}, successes: [], score: 0 } unless @scores.key?(submission.user_id)
 
+    @competition.users.each do |user|
+      @scores[user.id] = { failures: {}, successes: {}, score: 0 }
+    end
+
+    submissions.each do |submission|
       next if @scores[submission.user_id][:successes].include?(submission.problem_id)
 
       if submission.status != "success" && submission.status != "not_started"
@@ -37,9 +40,9 @@ class Scoreboard
         @scores[submission.user_id][:failures][submission.problem_id] += 1
         @scores[submission.user_id][:score] += 20
       elsif submission.status == "success"
-        @scores[submission.user_id][:successes] << submission.problem_id
-        minutes_in = (submission.created_at - @competition.start_time) / 60
-        @scores[submission.user_id][:score] += minutes_in.floor
+        minutes_in = ((submission.created_at - @competition.start_time) / 60).floor
+        @scores[submission.user_id][:successes].merge!({ submission.problem_id => minutes_in })
+        @scores[submission.user_id][:score] += minutes_in
       end
     end
   end
