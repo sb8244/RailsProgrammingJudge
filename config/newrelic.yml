@@ -42,7 +42,7 @@ common: &default_settings
   #       - Ajax Service
   #       - All Services
   #
-  app_name: My Application
+  app_name: Programming Judge
 
   # When "true", the agent collects performance data about your
   # application and reports this data to the New Relic service at
@@ -188,6 +188,8 @@ common: &default_settings
 
 development:
   <<: *default_settings
+  app_name: Programming Judge Development
+
   # Turn off communication to New Relic service in development mode (also
   # 'enabled').
   # NOTE: for initial evaluation purposes, you may want to temporarily
