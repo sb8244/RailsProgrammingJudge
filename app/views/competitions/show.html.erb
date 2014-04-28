@@ -6,7 +6,7 @@
   <p><%= link_to 'Scoreboard', scoreboard_competition_path(@competition) %></p>
 </div>
 
-<% if false && @competition.before? %>
+<% if @competition.before? %>
   <div class='lead'>
     This competition has not yet started. Please wait until <%= @competition.start_time.strftime('%B %e, %l:%M:%S %P') %> for the competition to begin.
   </div>
