@@ -19,7 +19,30 @@
     </div>
     <div class='form-controls'>
       <label>&nbsp;</label>
-      <%= f.submit :submit, class: 'btn btn-primary form-control' %>
+      <%= f.submit :submit, class: 'btn btn-primary form-control', value: "Submit Solution" %>
     </div>
   <% end %>
 </div>
+<% unless @problem.competition_id.nil? %>
+<div class='well'>
+  <h3>Clarifications</h3>
+  <% @clarifications.each do |clarification| %>
+  <div class='well'>
+    <p>Q: <%= clarification.question %></p>
+    <p>A: <%= clarification.answer %></p>
+  </div>
+  <% end %>
+  <div class='well'>
+    <%= form_for [@problem, @clarification], html: { class: 'form' } do |f| %>
+    <div class='form-controls'>
+      <%= f.label :question %>
+      <%= f.text_area :question, cols: '120', rows: '2', class: 'form-control', required: true %>
+    </div>
+    <div class='form-controls'>
+      <label>&nbsp;</label>
+      <%= f.submit :submit, class: 'btn btn-primary form-control', value: "Ask Question" %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

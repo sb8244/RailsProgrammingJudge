@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428042145) do
+ActiveRecord::Schema.define(version: 20140428164105) do
+
+  create_table "clarifications", force: true do |t|
+    t.string   "question",                  null: false
+    t.integer  "problem_id",                null: false
+    t.integer  "user_id",                   null: false
+    t.string   "answer"
+    t.boolean  "global",     default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "competitions", force: true do |t|
     t.string   "name"

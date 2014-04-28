@@ -11,6 +11,7 @@ ProgJudge::Application.routes.draw do
   
   resources :problems, only: [:show] do
     resource :submissions, only: [:create]
+    resource :clarifications, only: [:create]
   end
 
   resources :submissions, only: [:index, :show]
