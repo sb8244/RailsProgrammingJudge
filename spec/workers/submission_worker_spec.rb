@@ -5,7 +5,7 @@ describe SubmissionWorker do
   let!(:user) { User.create!(email: "steve@cool.com", password: "password") }
   let!(:competition) { Competition.create!(name: "competition", start_time: Time.now, duration: 180) }
   let!(:problem) { competition.problems.create!(name: "problem", html: "stuff", input_example: "input", output_example: "output") }
-  let!(:submission) { problem.submissions.create(language: 'java', code: "contents", competition: competition) }
+  let!(:submission) { user.submissions.create!(language: 'java', code: "contents", competition: competition, problem: problem) }
 
   context "when competition is ended" do
     before(:each) { competition.update_attributes!(start_time: Time.now + 3.days) }
@@ -21,9 +21,9 @@ describe SubmissionWorker do
   end
 
   context "when java language with real JavaMind" do
-    let!(:submission) {
+    before(:each) {
       contents = File.read('spec/java_source/Solution.java')
-      problem.submissions.create(language: 'java', code: contents, competition: competition)
+      submission.update_attributes!(code: contents)
     }
 
     it "sets correct with a correct input/output" do
@@ -49,9 +49,9 @@ describe SubmissionWorker do
     end
 
     context "when bad compilation" do
-      let!(:submission) {
+      before(:each) {
         contents = File.read('spec/java_source_error/Solution.java')
-        problem.submissions.create(language: 'java', code: contents, competition: competition)
+        submission.update_attributes!(code: contents)
       }
       it "catches compile errors" do
         problem.test_cases.create(input: "1", output: "wrong")
