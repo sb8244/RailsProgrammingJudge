@@ -8,7 +8,7 @@ class Clarification < ActiveRecord::Base
     unless self.answer.nil? || self.problem.competition.nil?
       self.problem.competition.users.each do |user|
         payload = { question: self.question, answer: self.answer, problem: self.problem.name }
-        Pusher.trigger("user-#{user.id}", 'clarification-answered', payload)
+        PusherWorker.perform_async("user-#{user.id}", 'clarification-answered', payload)
       end
     end
   end
