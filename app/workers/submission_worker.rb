@@ -43,16 +43,20 @@ class SubmissionWorker
     rescue CompileTimeError
       return :compile_error
     end
+
+    final_status = :success
+
     @problem.test_cases.each do |test_case|
       if test_case.active?
         output = @mind.run!({input: test_case.input})
         status = Comparer.compare({output: output, expected: test_case.output})
-        if status != :success
-          return status
+        @submission.test_case_results.create!(output: output, status: status, test_case_id: test_case.id)
+        if final_status == :success
+          final_status = status
         end
       end
     end
 
-    :success
+    final_status
   end
 end
