@@ -5,15 +5,18 @@ class Comparer
   #   Output Format Error : Equal with spaces removed and converted to lowercase
   #   Wrong Answer : Neither of those
   def self.compare(output: "", expected: "")
-    output = output.chomp
-    expected = expected.chomp
+    # Chomp off the last whitespace character because some users put it and some don't
+    # This is a pain. Output has literal newlines while expected has \n. Replace the literal
+    # new lines with \n to get out any inconsistencies
+    output = output.chomp.gsub(/\r\n?/, "\n")
+    expected = expected.chomp.gsub(/\r\n?/, "\n")
 
-    if output.eql?(expected)
+    if output == expected
       :success
     else
       output = output.downcase.gsub(/\s+/, "")
       expected = expected.downcase.gsub(/\s+/, "")
-      if output.eql?(expected)
+      if output == expected
         :format_error
       else
         :wrong_answer
