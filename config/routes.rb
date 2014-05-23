@@ -8,7 +8,7 @@ ProgJudge::Application.routes.draw do
     post :join, on: :member
     get :scoreboard, on: :member
   end
-  
+
   resources :problems, only: [:show] do
     resource :submissions, only: [:create]
     resource :clarifications, only: [:create]
