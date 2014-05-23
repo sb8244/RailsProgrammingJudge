@@ -1,7 +1,7 @@
 @import "bootstrap-generators";
 
 body {
-  background: url(asset-path("congruent_pentagon.png"));
+  background: url(<%= asset_path("congruent_pentagon.png", digest: true) %>);
 }
 
 .container.main {
