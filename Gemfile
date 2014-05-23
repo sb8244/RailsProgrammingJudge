@@ -13,8 +13,8 @@ gem 'sqlite3'
 gem 'sidekiq'
 
 gem 'rails_admin'
-#gem 'bootstrap-wysihtml5-rails'
-#gem 'codemirror-rails'
+gem 'bootstrap-wysihtml5-rails'
+gem 'codemirror-rails'
 gem 'devise'
 
 gem 'sass-rails', '~> 4.0.2'
