@@ -6,9 +6,12 @@ describe Comparer do
     context "success" do
       it "2 eql strings" do
         expect( Comparer.compare({output: "output\n1", expected: "output\n1"}) ).to eq(:success)
-      end 
+      end
       it "has single trailing \n" do
         expect( Comparer.compare({output: "output\n1\n", expected: "output\n1"}) ).to eq(:success)
+      end
+      it "has \r\n instead of \n" do
+        expect( Comparer.compare({output: "output\r\n1\r\n", expected: "output\n1"}) ).to eq(:success)
       end
     end
 
