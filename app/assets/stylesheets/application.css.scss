@@ -12,3 +12,12 @@
  *= require codemirror
  *= require_tree .
  */
+@import "bootstrap-generators";
+
+body {
+  padding-top: $navbar-height;
+}
+
+.container.main {
+  margin-top: 20px;
+}

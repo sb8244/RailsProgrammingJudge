@@ -1,0 +1,10 @@
+@import "bootstrap-generators";
+
+body {
+  background: url(asset-path("congruent_pentagon.png"));
+}
+
+.container.main {
+  background: $navbar-default-bg;
+  padding: 0px 30px;
+}
