@@ -1,7 +1,1 @@
-Competition Model:
-  name
-  start_time
-  duration (end_time derived field)
-  
-  has_many users
-  has_one user owner
+Waiting for users to want to use it again!
